@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Voter\AdulthoodVoter;
+use App\Voter\User;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
+
+$age = 19;
+$voters = [new AdulthoodVoter()];
+
+$user = new User('username', 'password', $age, ['ROLE_USER']);
+$token = new UsernamePasswordToken($user, $user->getPassword(), 'usernamePassword0', $user->getRoles());
+
+// AccessDecisionManager::STRATEGY_AFFIRMATIVE
+// Grants access if any voter returns an affirmative response.
+
+// AccessDecisionManager::STRATEGY_CONSENSUS
+// Grants access if there is consensus of granted against denied responses.
+
+// AccessDecisionManager::STRATEGY_UNANIMOUS
+// Grants access if only grant (or abstain) votes were received.
+
+$manager = new AccessDecisionManager($voters, AccessDecisionManager::STRATEGY_AFFIRMATIVE);
+$granted = $manager->decide($token, [AdulthoodVoter::ADULTHOOD]);
+echo var_export($granted, true), PHP_EOL;

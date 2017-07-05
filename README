@@ -1,17 +1,18 @@
+## Topics
 
-- [ ] Automated Tests
+- [ ] PHP and Web Security
+- [ ] HTTP
+- [ ] Symfony Architecture
+- [ ] Standardization
+- [ ] Controllers
 - [ ] Bundles
 - [x] Console
-- [ ] Controllers
-- [ ] Data Validation
-- [ ] Dependency Injection
-- [ ] Forms
-- [ ] HTTP
-- [ ] HTTP Caching
-- [ ] Miscellaneous
-- [ ] PHP and Web Security
-- [ ] Routing
 - [x] Security
-- [ ] Standardization
-- [ ] Symfony Architecture
+- [ ] Data Validation
+- [ ] Routing
+- [ ] Dependency Injection
+- [ ] HTTP Caching
 - [ ] Templating with Twig
+- [ ] Forms
+- [ ] Automated Tests
+- [ ] Miscellaneous
