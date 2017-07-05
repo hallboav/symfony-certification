@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Command\Helper\QuestionHelperCommand;
+use App\Command\Helper\FormatterHelperCommand;
+use App\Command\Helper\ProcessHelperCommand;
+use App\Command\Helper\ProgressHelperCommand;
+use App\Command\VerbosityCommand;
+use Symfony\Component\Console\Application;
+
+$app = new Application('Learning Symfony Console Component', '3.3.2');
+
+$app->add(new QuestionHelperCommand());
+$app->add(new FormatterHelperCommand());
+$app->add(new ProcessHelperCommand());
+$app->add(new ProgressHelperCommand());
+$app->add(new VerbosityCommand());
+
+$app->run();

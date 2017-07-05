@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$commandName = 'greet';
+
+(new Application('greeter', '1.0.0'))
+    ->register($commandName)
+        ->setDefinition(
+            new InputDefinition([
+                new InputArgument('name', InputArgument::REQUIRED, 'The name to greet.')
+            ])
+        )
+        ->setCode(function (InputInterface $input, OutputInterface $output) {
+            $logger = new ConsoleLogger($output);
+            $logger->info(sprintf('%s command just started.', ucfirst($this->getName())));
+
+            $output->writeln(sprintf('Hello %s.', $input->getArgument('name')));
+        })
+        ->getApplication()
+
+    // The method setDefaultCommand() accepts a boolean as second parameter.
+    // If true, the command will then always be used, without having to pass its name.
+    ->setDefaultCommand($commandName, true)
+    ->run();

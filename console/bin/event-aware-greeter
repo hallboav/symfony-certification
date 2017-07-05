@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
+use Symfony\Component\Console\Event\ConsoleTerminateEvent;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
+$dispatcher = new EventDispatcher();
+$dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) {
+    $event->getOutput()->writeln(sprintf('%s event happened.', ConsoleEvents::COMMAND));
+
+    $event->disableCommand();
+    $event->enableCommand();
+});
+
+$dispatcher->addListener(ConsoleEvents::ERROR, function (ConsoleErrorEvent $event) {
+    $output = $event->getOutput();
+    $output->writeln(sprintf('%s event happened.', ConsoleEvents::ERROR));
+
+    $output->writeln($event->getError()->getMessage());
+    $event->setExitCode($event->getExitCode());
+});
+
+$dispatcher->addListener(ConsoleEvents::TERMINATE, function (ConsoleTerminateEvent $event) {
+    $event->getOutput()->writeln(sprintf('%s event happened.', ConsoleEvents::TERMINATE));
+
+    $event->setExitCode($event->getExitCode());
+});
+
+$commandName = 'greet';
+
+$app = (new Application('greeter', '1.0.0'))
+    ->register($commandName)
+    ->setDefinition(
+        new InputDefinition([
+            new InputArgument('name', InputArgument::REQUIRED, 'The name to greet.')
+        ])
+    )
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        throw new \RuntimeException('Oh snap!');
+
+        $output->writeln(sprintf('Hello %s.', $input->getArgument('name')));
+    })
+    ->getApplication();
+
+$app->setDispatcher($dispatcher);
+
+$app
+    // The method setDefaultCommand() accepts a boolean as second parameter.
+    // If true, the command will then always be used, without having to pass its name.
+    ->setDefaultCommand($commandName, true)
+    ->run();
