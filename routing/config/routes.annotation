@@ -1,0 +1,17 @@
+<?php
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+class FooController
+{
+    /**
+     * @Route(
+     *     "/foo/begin/{begin}/limit/{limit}",
+     *     "name"="foo_route",
+     *     "defaults"={"limit"=10},
+     *     "requirements"={"begin"="\d+", "limit"="\d+"}
+     * )
+     */
+    public function fooAction($begin, $limit)
+    {
+    }
+}

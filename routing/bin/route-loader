@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\PhpFileLoader;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\Loader\XmlFileLoader;
+
+$locator = new FileLocator(__DIR__ . '/../config/');
+
+$loader = new PhpFileLoader($locator);
+$routes = $loader->load('routes.php');
+
+echo 'PhpFileLoader:', PHP_EOL;
+foreach ($routes as $name => $route) {
+    echo $name, ' => ', $route->getPath(), PHP_EOL;
+}
+
+$loader = new YamlFileLoader($locator);
+$routes = $loader->load('routes.yml');
+
+echo 'YamlFileLoader:', PHP_EOL;
+foreach ($routes as $name => $route) {
+    echo $name, ' => ', $route->getPath(), PHP_EOL;
+}
+
+$loader = new XmlFileLoader($locator);
+$routes = $loader->load('routes.xml');
+
+echo 'XmlFileLoader:', PHP_EOL;
+foreach ($routes as $name => $route) {
+    echo $name, ' => ', $route->getPath(), PHP_EOL;
+}

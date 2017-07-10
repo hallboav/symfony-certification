@@ -9,7 +9,7 @@
 - [x] Console
 - [x] Security
 - [ ] Data Validation
-- [ ] Routing
+- [x] Routing
 - [ ] Dependency Injection
 - [ ] HTTP Caching
 - [ ] Templating with Twig

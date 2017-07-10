@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\PhpFileLoader;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+
+$locator = new FileLocator(__DIR__ . '/../config/');
+$loader = new PhpFileLoader($locator);
+$routes = $loader->load('routes.php');
+
+$context = new RequestContext('/');
+$generator = new UrlGenerator($routes, $context);
+
+$url = $generator->generate('foo_route', [
+    'begin' => 10,
+    'limit' => 20
+]);
+
+echo $url, PHP_EOL;

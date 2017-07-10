@@ -1,0 +1,8 @@
+foo_route:
+    path: /foo/begin/{begin}/limit/{limit}
+    defaults:
+        _controller: App\Controller\FooController::fooAction
+        limit: 10
+    requirements:
+        begin: \d+
+        limit: \d+

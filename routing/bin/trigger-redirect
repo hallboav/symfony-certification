@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
+
+// FrameworkBundle
+class RedirectController
+{
+    public function redirectAction(Request $request, $route, $permanent = false, $ignoreAttributes = false)
+    {
+        if ('' == $route) {
+            throw new HttpException($permanent ? 410 : 404);
+        }
+
+        $attributes = [];
+        if (false === $ignoreAttributes || is_array($ignoreAttributes)) {
+            $attributes = $request->attributes->get('_route_params');
+            unset($attributes['route'], $attributes['permanent'], $attributes['ignoreAttributes']);
+
+            if ($ignoreAttributes) {
+                $attributes = array_diff_key($attributes, array_flip($ignoreAttributes));
+            }
+        }
+
+        return new RedirectResponse(
+            $this->container->get('router')->generate($route, $attributes, UrlGeneratorInterface::ABSOLUTE_URL),
+            $permanent ? 301 : 302
+        );
+    }
+}
+
+$routes = new RouteCollection();
+$routes->add('some_route', new Route('/admin', [
+    '_controller' => 'FrameworkBundle:Redirect:redirect',
+    'route' => 'another_route',
+    // The permanent switch tells the action to issue a 301 HTTP status
+    // code instead of the default 302 HTTP status code.
+    'permanent' => true,
+    'ignoreAttributes' => false
+]));
+
+return $routes;
