@@ -2,14 +2,13 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use App\Voter\AdulthoodVoter;
 use App\Voter\User;
+use App\Voter\AdulthoodVoter;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 
-$age = 19;
+$age = 18;
 $voters = [new AdulthoodVoter()];
-
 $user = new User('username', 'password', $age, ['ROLE_USER']);
 $token = new UsernamePasswordToken($user, $user->getPassword(), 'usernamePassword0', $user->getRoles());
 

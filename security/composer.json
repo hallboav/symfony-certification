@@ -1,6 +1,6 @@
 {
     "require": {
-        "symfony/security": "^3.3"
+        "symfony/security": "^4.0"
     },
     "autoload": {
         "psr-4": {
