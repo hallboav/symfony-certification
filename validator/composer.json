@@ -1,5 +1,5 @@
 {
     "require": {
-        "symfony/validator": "^3.3"
+        "symfony/validator": "^4.0"
     }
 }
