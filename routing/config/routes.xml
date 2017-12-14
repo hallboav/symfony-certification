@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <route id="foo_route" path="/foo/begin/{begin}/limit/{limit}">
-        <default key="_controller">App\Controller\FooController::fooAction</default>
+        <default key="_controller">App\Controller\FooController::foo</default>
         <default key="limit">10</default>
         <requirement key="begin">\d+</requirement>
         <requirement key="limit">\d+</requirement>

@@ -11,8 +11,7 @@ $locator = new FileLocator(__DIR__ . '/../config/');
 $loader = new PhpFileLoader($locator);
 $routes = $loader->load('routes.php');
 
-$context = new RequestContext('/');
-$generator = new UrlGenerator($routes, $context);
+$generator = new UrlGenerator($routes, new RequestContext());
 
 $url = $generator->generate('foo_route', [
     'begin' => 10,

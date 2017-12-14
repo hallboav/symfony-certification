@@ -6,7 +6,7 @@ $routes = new RouteCollection();
 $routes->add('foo_route', new Route(
     '/foo/begin/{begin}/limit/{limit}',
     [
-        '_controller' => 'App\Controller\FooController::fooAction',
+        '_controller' => 'App\Controller\FooController::foo',
         'limit' => 10
     ],
     [

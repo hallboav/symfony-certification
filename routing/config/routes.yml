@@ -1,7 +1,7 @@
 foo_route:
     path: /foo/begin/{begin}/limit/{limit}
     defaults:
-        _controller: App\Controller\FooController::fooAction
+        _controller: App\Controller\FooController::foo
         limit: 10
     requirements:
         begin: \d+

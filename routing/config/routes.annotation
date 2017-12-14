@@ -11,7 +11,7 @@ class FooController
      *     "requirements"={"begin"="\d+", "limit"="\d+"}
      * )
      */
-    public function fooAction($begin, $limit)
+    public function foo($begin, $limit)
     {
     }
 }
